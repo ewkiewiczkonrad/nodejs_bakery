@@ -1,0 +1,23 @@
+{
+  "name": "nodejs_bakery",
+  "version": "1.0.0",
+  "description": "Rest API Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "node"
+  ],
+  "author": "Konrad Ewkiewicz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
