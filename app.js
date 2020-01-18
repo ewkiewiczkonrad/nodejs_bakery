@@ -2,9 +2,16 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const cakeRoutes = require('./api/routes/cake');
 const toBakeRoutes = require('./api/routes/toBake');
+
+mongoose.connect('mongodb+srv://admin:'+
+process.env.MONGO_ATLAS_PW+
+'@nodejs-z1j8g.mongodb.net/test?retryWrites=true&w=majority',{
+    useMongoClient: true
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -18,7 +25,9 @@ if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
     return res.status(200).json({});
 }
+next();
 });
+
 app.use('/cake', cakeRoutes);
 app.use('/toBake', toBakeRoutes);
 
