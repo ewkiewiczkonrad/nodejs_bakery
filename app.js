@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const cakeRoutes = require('./api/routes/cake');
 const toBakeRoutes = require('./api/routes/toBake');
+const userRoutes = require('./api/routes/user.js');
 
 mongoose.connect('mongodb+srv://admin:'+
 process.env.MONGO_ATLAS_PW+
@@ -31,6 +32,7 @@ next();
 
 app.use('/cake', cakeRoutes);
 app.use('/toBake', toBakeRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

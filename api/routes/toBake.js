@@ -8,7 +8,8 @@ const Cake = require("../models/cake");
 
 router.get("/", (req, res, next) => {
   toBake.find()
-    .select("product quantity _id")
+    .select("cake quantity _id")
+    .populate('cake', 'name')
     .exec()
     .then(docs => {
       res.status(200).json({
@@ -73,7 +74,8 @@ router.post("/", (req, res, next) => {
 
 router.get("/:toBakeId", (req, res, next) => {
   toBake.findById(req.params.toBakeId)
-    .exec()
+  .populate('cake')  
+  .exec()
     .then(tobake => {
       if (!tobake) {
         return res.status(404).json({
