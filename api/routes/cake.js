@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const checkAuth = require('../middleware/check-auth');
 
 const Cake = require('../models/cake');
 
@@ -33,7 +34,7 @@ router.get('/', (req,res,next) => {
     });
 });
 
-router.post('/', (req,res,next) => {
+router.post('/',checkAuth, (req,res,next) => {
     const cake = new Cake({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -93,7 +94,7 @@ router.get('/:cakeId', (req,res,next) =>{
 });
 
 
-router.patch('/:cakeId', (req,res,next) =>{
+router.patch('/:cakeId',checkAuth, (req,res,next) =>{
     const id = req.params.cakeId;
   const updateOps = {};
   for (const ops of req.body) {
@@ -117,7 +118,7 @@ router.patch('/:cakeId', (req,res,next) =>{
       });
     });
 });
-router.delete("/:cakeId", (req, res, next) => {
+router.delete("/:cakeId",checkAuth, (req, res, next) => {
     const id = req.params.cakeId;
     Cake.remove({ _id: id })
       .exec()

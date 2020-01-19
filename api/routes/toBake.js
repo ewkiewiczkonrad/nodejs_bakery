@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
+const checkAuth= require("../middleware/check-auth");
 const toBake = require("../models/toBake");
 const Cake = require("../models/cake");
 
 
-router.get("/", (req, res, next) => {
+router.get("/", checkAuth,(req, res, next) => {
   toBake.find()
     .select("cake quantity _id")
     .populate('cake', 'name')
@@ -34,7 +34,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", checkAuth,(req, res, next) => {
   Cake.findById(req.body.cakeId)
     .then(cake => {
       if (!cake) {
@@ -72,7 +72,7 @@ router.post("/", (req, res, next) => {
     });
 });
 
-router.get("/:toBakeId", (req, res, next) => {
+router.get("/:toBakeId",checkAuth, (req, res, next) => {
   toBake.findById(req.params.toBakeId)
   .populate('cake')  
   .exec()
@@ -97,7 +97,7 @@ router.get("/:toBakeId", (req, res, next) => {
     });
 });
 
-router.delete("/:toBakeId", (req, res, next) => {
+router.delete("/:toBakeId",checkAuth, (req, res, next) => {
   toBake.remove({ _id: req.params.toBakeId })
     .exec()
     .then(result => {
