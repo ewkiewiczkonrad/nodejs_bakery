@@ -10,8 +10,9 @@ const toBakeRoutes = require('./api/routes/toBake');
 mongoose.connect('mongodb+srv://admin:'+
 process.env.MONGO_ATLAS_PW+
 '@nodejs-z1j8g.mongodb.net/test?retryWrites=true&w=majority',{
-    useMongoClient: true
+    useNewUrlParser: true
 });
+mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
